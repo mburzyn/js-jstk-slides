@@ -1,0 +1,828 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <h1>
+                    <span class="fallbackColor">JavaScript</span>
+                </h1>
+            </section>
+
+            <section>
+                <h2>
+                    ECMAScript
+                </h2>
+                <p>ECMAScript (ES) first introduced 1997(turn 22 in 2019) and is still very popular.</p>
+                <p>3th <a href="http://pypl.github.io/PYPL.html">PYPL</a> (March 2019), 7th <a
+                        href="https://www.tiobe.com/tiobe-index/">TIOBE Index</a> (March 2019)</p>
+            </section>
+
+            <section>
+                <h2>JavaScript...</h2>
+                <p>...is compiled programming language</p>
+                <p>...has nothing in common with Java&nbsp;<small>* except for some key words</small></p>
+                <p>...has objects, but is class-free</p>
+                <p>...is of single-threaded nature</p>
+                <p>...has asynchronous programming model</p>
+                <p>...is object oriented and functional at the same time</p>
+            </section>
+
+            <section>
+                <h3>ECMAScript (JavaScript) versioning covered</h3>
+                <ul>
+                    <li>ES5 2009</li>
+                    <li>ES2015 (f.k.a. ES6) 2015</li>
+                </ul>
+                <p><a href="http://caniuse.com/#search=es6" target="_blank">Can I use ES6 (Browsers Support)</a></p>
+                <p><a href="http://node.green/" target="_blank">node.green (Node.js Support)</a></p>
+            </section>
+
+            <section>
+                <h3>Why is ES5 still relevant</h3>
+                <p>Because of <span class="highlight">compatibility</span>.</p>
+                <p>Older browsers (IE ...) can support ES5 code via <span class="highlight">polyfills</span> (shims).</p>
+                <p>There are lots of <span class="highlight">legacy projects</span>, <span class="highlight">build scripts</span>, etc. written in ES5.</p>
+                <p>A lot of syntactic sugar.</p>
+            </section>
+
+            <section>
+                <h2>Variables</h2>
+                <h3>var, let, const</h3>
+                <pre><code >
+                    var a;
+                    a = 1;
+                    var b = 2;
+                </code></pre>
+                <pre><code >
+                    let a;
+                    a = 1;
+                    let b = 2;
+                </code></pre>
+                <pre><code >
+                    const b = 2;
+                    b = 3; // Error
+                    const a; // Error
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Variables</h2>
+                <h3>var & let - differences</h3>
+                <pre><code>
+                    var foo = 123;
+                    if (true) {
+                        var foo = 456;
+                    }
+                    console.log(foo); // ?
+                </code></pre>
+                <pre><code>
+                    let foo = 123;
+                    if (true) {
+                        let foo = 456;
+                    }
+                    console.log(foo); // ?
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Variables</h2>
+                <h3>var & let - differences</h3>
+                <pre><code>
+                    var foo = 123;
+                    if (true) {
+                        var foo = 456;
+                    }
+                    console.log(foo); // 456
+                </code></pre>
+                <pre><code>
+                    let foo = 123;
+                    if (true) {
+                        let foo = 456;
+                    }
+                    console.log(foo); // 123
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Scope</h2>
+                <h3>var, let, const - differences</h3>
+                <pre><code>
+                        if(true) {
+                            var a = 1;
+                            let b = 2;
+                            const c = 3;
+                        }
+                        console.log(a); // ?
+                        console.log(b); // ?
+                        console.log(c); // ?
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Scope</h2>
+                <h3>var, let, const - differences</h3>
+                <pre><code>
+                        if(true) {
+                            var a = 1;
+                            let b = 2;
+                            const c = 3;
+                        }
+                        console.log(a); // 1
+                        console.log(b); // Error
+                        console.log(c); // Error
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Scopes (hoisting)</h2>
+                <p>Difference between undeclared and undefined.</p>
+                <pre><code >
+                    console.log(foo) // ?
+                </code></pre>
+                <pre><code >
+                    console.log(bar) // ?
+                    if(true) {
+                        var bar = 1;
+                        console.log(bar); // ?
+                    }
+                    console.log(bar); // ?
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Scopes (hoisting)</h2>
+                <p>Difference between undeclared and undefined.</p>
+                <pre><code >
+                    console.log(foo) // Error, foo is undeclared
+                </code></pre>
+                <pre><code >
+                    console.log(bar) // ?
+                    if(true) {
+                        var bar = 1;
+                        console.log(bar); // ?
+                    }
+                    console.log(bar); // ?
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Scopes (hoisting)</h2>
+                <p>Difference between undeclared and undefined.</p>
+                <pre><code >
+                    console.log(foo) // Error, foo is undeclared
+                </code></pre>
+                <pre><code >
+                    console.log(bar) // undefined
+                    if(true) {
+                        var bar = 1;
+                        console.log(bar); // 1
+                    }
+                    console.log(bar); // 1
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Scopes (hoisting)</h2>
+                <pre><code >
+                    if(true) {
+                        var bar = 1;
+                    }
+                </code></pre>
+                is equal to:
+                <pre><code >
+                    var bar;
+                    if(true) {
+                        bar = 1;
+                    }
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Single var pattern</h2>
+                <pre><code >
+                    var a = 1,
+                        b = 2,
+                        c,
+                        sum = a + b,
+                        myVar;    
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Functions</h2>
+                <pre><code>
+                    function add(a, b) {
+                        return a + b;
+                    }
+                    add(1, 2); // 3
+                </code></pre>
+                <p>Functions are <strong>objects </strong></p>
+            </section>
+
+            <section>
+                <h2>Functions</h2>
+                <pre><code>
+                    function add(a, b) {
+                        return a + b;
+                    }
+                    add(1, 2, 1000, "abc"); // 3
+                </code></pre>
+                <p>Additional arguments are ignored.</p>
+            </section>
+
+            <section>
+                <h2>Functions</h2>
+                <pre><code>
+                    function add(a, b) {
+                        return a + b;
+                    }
+                    add(1); // NaN, because 1 + undefined = NaN
+                </code></pre>
+                <p>Missing arguments are undefined.</p>
+            </section>
+
+            <section>
+                <h2>Functions cannot be overloaded</h2>
+                <pre><code>
+    var add = function (a) {
+        return a + 1;
+    };
+    // this will override the previous 'add' function definition
+    var add = function (a, b) {
+        return a + b;
+    };
+
+    add(1, 2); // 3
+    add(); // a = undefined, b = undefined, returns NaN
+    add(1); // a = 1, b = undefined, returns 1 + undefined = NaN
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Functions</h2>
+                <h5>are "hoisted"</h5>
+                <pre><code>
+                    add(1, 2); // ?
+                    function add(a, b) {
+                        return a + b;
+                    }
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Functions</h2>
+                <h5>are "hoisted"</h5>
+                <pre><code>
+                    add(1, 2); // 3
+                    function add(a, b) {
+                        return a + b;
+                    }
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Anonymous functions</h2>
+                <pre><code>
+                    var add = function (a, b) {
+                        return a + b;
+                    };
+                    add(1, 2); // 3
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Functions</h2>
+                <h5>are "hoisted"</h5>
+                <pre><code>
+                    add(1, 2); // 3
+                    function add(a, b) {
+                        return a + b;
+                    }
+                </code></pre>
+                <pre><code>
+                    add(1, 2); // ?
+                    var add = function (a, b) {
+                        return a + b;
+                    };
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Functions</h2>
+                <h5>are "hoisted"</h5>
+                <pre><code>
+                    add(1, 2); // 3
+                    function add(a, b) {
+                        return a + b;
+                    }
+                </code></pre>
+                <pre><code>
+                    add(1, 2); // Error, add is undefined
+                    var add = function (a, b) {
+                        return a + b;
+                    };
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Anonymous functions</h2>
+                <h5>Arrow function</h5>
+                <pre><code>
+                    var add = (a, b) => {
+                        return a + b;
+                    }
+                    add(1, 2); // 3
+                </code></pre>
+                <pre><code>
+                    var add = (a, b) => a + b;
+                    add(1, 2); // 3
+                </code></pre>
+                <pre><code>
+                    var add = a => a + 2;
+                    add(1); // 3
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Map, filter, reduce</h2>
+                <pre><code>
+                    var numbers = [1, 2, 3];
+                    doubledNumbers = numbers.map(x => x * 2);
+                    console.log(doubledNumbers); // [2, 4, 6]
+                </code></pre>
+                <pre><code>
+                    var numbers = [1, 2, 3];
+                    filtered = numbers.filter(x => x > 2);
+                    console.log(filtered); // [3]
+                </code></pre>
+                <pre><code>
+                    var numbers = [1, 2, 3];
+                    sum = numbers.reduce((x, y) => x + y);
+                    console.log(sum); // 6
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Scope</h2>
+                <p>is defined by <strong>functions</strong>, not {} blocks</p>
+                <pre><code>
+                    // Scope 1
+                    var funcA = function () {
+                        // Scope 2
+                        var funcB = function () {
+                            // Scope 3
+                        }
+                    };
+                </code></pre>
+                <p>Lexical scope: scopes can access parent scopes, but parent scope can't access child scopes.</p>
+            </section>
+
+            <section>
+                <h5>Lexical scope</h5>
+                <p><strong>Inner scope </strong> access <strong>outer scope</strong> and <strong>not </strong> versa</p>
+                <pre><code style="max-height: max-content;">
+            var myFun = function (someInput) {
+                var a = 1,
+                    b = 2,
+                    yourFun = function () {
+                        var b = 22,
+                            c = 3;
+                        // at this point a = 1, b = 22, c = 3
+                        a = 11;
+                    };
+                // at this point a = 1, b = 2, c is not defined
+                yourFun();
+                // at this point a = 11, b = 2, c is not defined
+            };
+            myFun();
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Objects</h2>
+                <pre><code>
+                    var emptyObject = {},
+                        person = {
+                            firstName : 'John',
+                            lastName : 'Example',
+                            age : 30
+                        };
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Objects</h2>
+                <h5>value's retrieval</h5>
+                <pre><code>
+    var emptyObject = {},
+        person = {
+            firstName: 'John',
+            lastName: 'Example',
+            age: 30
+        };
+
+    // retrieval
+    person.firstName // 'John'
+    person['lastName'] // 'Example'
+    person.salutation // undefined
+    person.address.street // throws TypeError
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Objects</h2>
+                <h5>values' update and properties' removal</h5>
+                <pre><code>
+    var person = {
+        firstName: 'John',
+        lastName: 'Example',
+        age: 30
+    };
+
+    // update
+    person['firstName'] = 'Joe';
+    person.age = 33;
+
+    // delete
+    delete person.age;
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>
+                    Methods
+                </h2>
+                <p>Functions stored as <strong>properties </strong> objects...</p>
+                <p>...are called <strong>methods</strong></p>
+                <pre><code>
+var person = {
+    firstName: 'John',
+    lastName: 'Example',
+    age: 30,
+    letMeIntroduceMyself: function () {
+        return 'My name is ' + this.firstName + ' ' + this.lastName;
+    }
+};
+
+person.letMeIntroduceMyself(); // My name is John Example
+person.firstName // 'John' - no privacy
+                </code></pre>
+            </section>
+
+            <section>
+                <h5>Falsy values</h5>
+                <pre><code>
+                    false
+                    0 // (zero)
+                    "" // (empty string, the same as '')
+                    null
+                    undefined
+                    NaN
+                </code></pre>
+                <h5>Truthy values</h5>
+                <p>All others, including:</p>
+                <pre><code>
+                    []
+                    {}
+                    function() {}
+                    "0"
+                    "false"
+                </code></pre>
+                <p>Difference: type casting</p>
+            </section>
+
+            <section>
+                <h2>Objects</h2>
+                <h3>value's retrieval</h3>
+                <pre><code>
+    var emptyObject = {},
+        person = {
+        firstName: 'John',
+        lastName: 'Example',
+        age: 30
+    };
+    person.salutation // undefined
+    salutation = person.salutation || ''; // the default operator
+    person.address.street // throws TypeError
+    street = person.address && person.address.street // undefined
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>== vs ===</h2>
+                <h3>What is the difference?</h3>
+                <pre><code>
+                    console.log(1 == "1")  // ?
+                    console.log(1 === "1") // ?
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>== vs ===</h2>
+                <h3>What is the difference?</h3>
+                <pre><code>
+                    console.log(1 == "1")  // true
+                    console.log(1 === "1") // false
+                </code></pre>
+                <p>Difference: type coercion</p>
+            </section>
+
+            <section>
+                <h2>closure</h2>
+                <p>Closure is when a function “remembers” its</p>
+                <p>lexical scope even when the function is</p>
+                <p>executed outside that lexical scope.</p>
+                <p></p>
+                <small>*Credits: Kyle Simpson</small>
+            </section>
+
+            <section>
+                <h2>closure</h2>
+                <pre><code>
+    var askQuestionFactory = function () {
+        var question = 'What is my name?';
+
+        return function hereIsMyQuestion () {
+                console.log(question);
+            }
+    };
+    askQuestion = askQuestionFactory();
+    askQuestion(); // What is my name?
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>closure</h2>
+                <pre><code>
+    var askQuestionFactory = function (anotherQuestion) {
+        var question = 'What is my name?';
+
+        return function hereIsMyQuestion () {
+                console.log(question + ' ' anotherQuestion);
+            }
+    };
+    askQuestion = askQuestionFactory('What is my surname?');
+    askQuestion(); // What is my name? What is my surname?
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>closure</h2>
+                <pre><code>
+    var askQuestionFactory = function (anotherQuestion) {
+        var question = 'What is my name?';
+
+        return {
+            hereIsMyQuestion: function () {
+                console.log(question + ' ' anotherQuestion);
+            }
+        }
+    };
+    askQuestion = askQuestionFactory('What is my surname?');
+    askQuestion.hereIsMyQuestion(); // What is my name? What is my surname?
+    askQuestion.question // undefined
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Module pattern - IIFE</h2>
+                <pre><code>
+    var askQuestion = (function () {
+        var question = 'What is my name?';
+        return {
+            hereIsMyQuestion: function () {
+                console.log(question);
+            }
+        }
+    })();
+    askQuestion.hereIsMyQuestion(); // What is my name?
+    askQuestion.question // undefined
+                </code></pre>
+            </section>
+
+            <section>
+                <p>IIFE, before and after</p>
+                <pre><code>
+    var askQuestionFactory = function () {
+        var question = 'What is my name?';
+        return {
+            hereIsMyQuestion: function () {
+                console.log(question);
+            }
+        }
+    };
+                </code></pre>
+                <pre><code>
+    var askQuestion = (function () {
+        var question = 'What is my name?';
+        return {
+            hereIsMyQuestion: function () {
+                console.log(question);
+            }
+        }
+    })();
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>This keyword</h2>
+
+                <p>A function's <b>this</b> references the execution</p>
+                <p>context for that call, determined entirely by</p>
+                <p><u>how the function was called.</u></p>
+                <p></p>
+                <small>*Credits: Kyle Simpson</small>
+            </section>
+
+            <section>
+                <h2>This keyword</h2>
+                <h5>rules</h5>
+                <ol>
+                        <li>default - global object(except strict mode)</li>
+                        <li>call in context of an object</li>
+                        <li>abc - apply, bind, call</li>
+                        <li>new keyword</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>This keyword</h2>
+                <h5>rules</h5>
+                    <p>1. default - global object(except strict mode)</p>
+                    
+                    <pre><code>
+            function logThis () {
+                console.log(this);
+            }
+            logThis(); // window
+                    </code></pre>
+            </section>
+
+            <section>
+                <h2>This keyword</h2>
+                <h5>rules</h5>
+                    <p>2. call in context of an object</p>
+                    
+                    <pre><code>
+            var obj = {
+                logThis: function () {
+                    console.log(this);
+                }
+            };
+            obj.logThis(); // obj
+                    </code></pre>
+            </section>
+
+            <section>
+                <h2>This keyword</h2>
+                <h5>rules</h5>
+                    <p>3. abc - apply, bind, call</p>
+                    
+                    <pre><code>
+            function logThis (greeting) {
+                console.log(greeting + ', ' + this);
+            }
+            var obj = {
+                name: "John"
+            };
+            logThis.call(obj, "Hello"); // Hello, obj
+            logThis.apply(obj, ["Hello"]); // Hello, obj
+            bindedLogThis = logThis.bind(obj);
+            bindedLogThis("Hello"); // Hello, obj
+                    </code></pre>
+            </section>
+
+            <section>
+                <h2>This keyword</h2>
+                <h5>rules</h5>
+                    <p>4. new keyword</p>
+                    <pre><code>
+                            var Person = function () {
+                              this.firstName = 'John';
+                              this.lastName = 'Example';
+                              this.age = 30;
+                            },
+                            johnExample;
+                        
+                            johnExample = new Person();
+                            johnExample.firstName; // 'John' - no privacy
+                    </code></pre>
+            </section>
+
+
+            <section>
+                <h2>prototype</h2>
+                <pre><code>
+    var Person = function () {
+      this.firstName = 'John';
+      this.lastName = 'Example';
+      this.age = 30;
+    }, johnExample;
+
+    Person.prototype.letMeIntroduceMyself = function () {
+    return 'My name is ' + this.firstName + ' ' + this.lastName;
+    };
+
+    johnExample = new Person();
+    johnExample.letMeIntroduceMyself();  // My name is John Example
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>
+                    Tests
+                </h1>
+                <h5>karma & jasmine</h5>
+                <p><strong>Karma</strong> - tool used to spawn
+                    a web server which <strong>loads your application's source code</strong> and <strong>executes
+                    </strong> your tests.</p>
+
+                <p><strong>Jasmine</strong> - <strong>BDD </strong> for JavaScript, provides functions to help with
+                    <strong>structuring tests and making assertions.</strong>
+            </section>
+
+            <section>
+                <h1>
+                    Tests
+                </h1>
+                <h5>structure</h5>
+                <pre><code>
+        describe('A suite', function() {
+            it('contains spec with an expectation', function() {
+                expect(true).toBe(true);
+            });
+        });
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>
+                    Karma
+                </h1>
+                <h5>configuration</h5>
+                <pre><code>
+        // install Karma
+        npm install karma
+
+        // install plugins and tools
+        npm install karma-jasmine
+        npm install karma-phantomjs-launcher
+        npm install karma-chrome-launcher
+        npm install jasmine-core
+
+        // run Karma
+        ./node_modules/karma/bin/karma start / init / run
+        
+        // alternative
+        npm install -g karma-cli
+        karma start / init / run
+                </code></pre>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+        // More info about config & dependencies:
+        // - https://github.com/hakimel/reveal.js#configuration
+        // - https://github.com/hakimel/reveal.js#dependencies
+        Reveal.initialize({
+            dependencies: [
+                { src: 'plugin/markdown/marked.js' },
+                { src: 'plugin/markdown/markdown.js' },
+                { src: 'plugin/notes/notes.js', async: true },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+            ]
+        });
+    </script>
+</body>
+
+</html>
