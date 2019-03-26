@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>reveal.js</title>
+    <title>JSTK JS Slides</title>
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/theme/white.css">
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -37,7 +37,7 @@
                 <h2>
                     ECMAScript
                 </h2>
-                <p>ECMAScript (ES) first introduced 1997(turn 22 in 2019) and is still very popular.</p>
+                <p>ECMAScript (ES) first introduced in 1997(turn 22 in 2019) and is still very popular.</p>
                 <p>3th <a href="http://pypl.github.io/PYPL.html">PYPL</a> (March 2019), 7th <a
                         href="https://www.tiobe.com/tiobe-index/">TIOBE Index</a> (March 2019)</p>
             </section>
@@ -67,12 +67,12 @@
                 <p>Because of <span class="highlight">compatibility</span>.</p>
                 <p>Older browsers (IE ...) can support ES5 code via <span class="highlight">polyfills</span> (shims).</p>
                 <p>There are lots of <span class="highlight">legacy projects</span>, <span class="highlight">build scripts</span>, etc. written in ES5.</p>
-                <p>A lot of syntactic sugar.</p>
+                <p>Lots of syntactic sugar.</p>
             </section>
 
             <section>
                 <h2>Variables</h2>
-                <h3>var, let, const</h3>
+                <h3>var (ES5), let (ES6), const(ES6)</h3>
                 <pre><code >
                     var a;
                     a = 1;
@@ -89,7 +89,22 @@
                     const a; // Error
                 </code></pre>
             </section>
-
+            <section>
+                <h2>Variables</h2>
+                <p>What will happen?</p>
+                <pre><code >
+                    a = 1;
+                    console.log(a);
+                </code></pre>
+            </section>
+            <section>
+                <h2>Variables</h2>
+                <p>Avoid declaring global variables! Use strict mode.</p>
+                <pre><code >
+                    'use strict';
+                    a = 1; // Reference Error
+                </code></pre>
+            </section>
             <section>
                 <h2>Variables</h2>
                 <h3>var & let - differences</h3>
@@ -269,11 +284,11 @@
             <section>
                 <h2>Functions cannot be overloaded</h2>
                 <pre><code>
-    var add = function (a) {
+    function add(a) {
         return a + 1;
     };
     // this will override the previous 'add' function definition
-    var add = function (a, b) {
+    function add(a, b) {
         return a + b;
     };
 
@@ -474,27 +489,6 @@
             </section>
 
             <section>
-                <h2>
-                    Methods
-                </h2>
-                <p>Functions stored as <strong>properties </strong> objects...</p>
-                <p>...are called <strong>methods</strong></p>
-                <pre><code>
-var person = {
-    firstName: 'John',
-    lastName: 'Example',
-    age: 30,
-    letMeIntroduceMyself: function () {
-        return 'My name is ' + this.firstName + ' ' + this.lastName;
-    }
-};
-
-person.letMeIntroduceMyself(); // My name is John Example
-person.firstName // 'John' - no privacy
-                </code></pre>
-            </section>
-
-            <section>
                 <h5>Falsy values</h5>
                 <pre><code>
                     false
@@ -530,6 +524,27 @@ person.firstName // 'John' - no privacy
     salutation = person.salutation || ''; // the default operator
     person.address.street // throws TypeError
     street = person.address && person.address.street // undefined
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>
+                    Methods
+                </h2>
+                <p>Functions stored as <strong>properties </strong> objects...</p>
+                <p>...are called <strong>methods</strong></p>
+                <pre><code style="width: fit-content;">
+var person = {
+    firstName: 'John',
+    lastName: 'Example',
+    age: 30,
+    letMeIntroduceMyself: function () {
+        return 'My name is ' + this.firstName + ' ' + this.lastName;
+    }
+};
+
+person.letMeIntroduceMyself(); // My name is John Example
+person.firstName // 'John' - no privacy
                 </code></pre>
             </section>
 
@@ -722,15 +737,15 @@ person.firstName // 'John' - no privacy
                 <h5>rules</h5>
                     <p>4. new keyword</p>
                     <pre><code>
-                            var Person = function () {
-                              this.firstName = 'John';
-                              this.lastName = 'Example';
-                              this.age = 30;
-                            },
-                            johnExample;
+        var Person = function () {
+            this.firstName = 'John';
+            this.lastName = 'Example';
+            this.age = 30;
+        },
+        johnExample;
                         
-                            johnExample = new Person();
-                            johnExample.firstName; // 'John' - no privacy
+        johnExample = new Person();
+        johnExample.firstName; // 'John' - no privacy
                     </code></pre>
             </section>
 
@@ -784,7 +799,7 @@ person.firstName // 'John' - no privacy
                 <h1>
                     Karma
                 </h1>
-                <h5>configuration</h5>
+                <h5>installation</h5>
                 <pre><code>
         // install Karma
         npm install karma
@@ -795,12 +810,30 @@ person.firstName // 'John' - no privacy
         npm install karma-chrome-launcher
         npm install jasmine-core
 
-        // run Karma
-        ./node_modules/karma/bin/karma start / init / run
-        
-        // alternative
+        // all together:
+        npm install karma karma-jasmine karma-phantomjs-launcher karma-chrome-launcher jasmine-core
+
+                </code></pre>
+            </section>
+            <section>
+                <h1>
+                    Karma
+                </h1>
+                <h5>configuration</h5>
+                <h6 style="color:red;">RUN IN CMD</h6>
+    <pre><code>
         npm install -g karma-cli
-        karma start / init / run
+        karma init
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>
+                    Karma
+                </h1>
+                <h5>Start</h5>
+                <pre><code>
+        karma start
                 </code></pre>
             </section>
 
@@ -822,6 +855,7 @@ person.firstName // 'John' - no privacy
                 { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
             ]
         });
+		Reveal.configure({ slideNumber: 'c/t' });
     </script>
 </body>
 
