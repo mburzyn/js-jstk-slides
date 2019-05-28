@@ -32,6 +32,7 @@
                     <span class="fallbackColor">JavaScript</span>
                 </h1>
             </section>
+			
 
             <section>
                 <h2>
@@ -663,6 +664,50 @@ person.firstName // 'John' - no privacy
     })();
                 </code></pre>
             </section>
+			<section>
+                <p>ES6 modules</p>
+                <pre><code>
+    // myQuestionModule.js
+    let question = 'What is my name?';
+
+    function hereIsMyQuestion() {
+	    console.log(question);
+    };
+
+    export { hereIsMyQuestion };
+                </code></pre>
+                <pre><code>
+    // myAppModule.js
+    import { hereIsMyQuestion } from './myQuestionModule.js';
+
+    hereIsMyQuestion();
+                </code></pre>
+            </section>
+			
+			<section>
+                <p>ES6 modules - dafault, import as, export as</p>
+                <pre><code>
+    function hereIsMyQuestion() {
+	    console.log('My question');
+    };
+	
+    function hereIsMyAnswer() {
+	    console.log('My answer');
+    };
+
+    export defult hereIsMyQuestion;
+    export hereIsMyAnswer as myAnswer;
+                </code></pre>
+                <pre><code>
+    import askMyQuestion from './myQuestionModule.js';
+    import { myAnswer as answer } from './myQuestionModule.js';
+
+    answer();
+    askMyQuestion();
+                </code></pre>
+            </section>
+			
+			
 
             <section>
                 <h2>This keyword</h2>
